@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --main-color: red;
+  --main-color: #6a63ea;
 }
 
 body {
-  font-size: 30px;
+  padding: 0 25vw;
+  font-size: 16px;
 }
