@@ -1,36 +1,38 @@
-"use client";
-import { usePathname } from "next/navigation";
 import BasicCard from "@/components/Card/BasicCard";
+import BasicButton from "@/components/Button/BasicButton";
+import Link from "next/link";
 
-const dataList = [
-  {
-    id: "bor-1",
-    title: "게시글 제목",
-    contents: "게시글 내용",
-    date: "작성일",
-  },
-  {
-    id: "bor-2",
-    title: "게시글 제목",
-    contents: "게시글 내용",
-    date: "작성일",
-  },
-];
+const getList = async () => {
+  const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/board");
 
-export default function Board() {
+  if (!res.ok) {
+    throw new Error("목록 리스트 조회에 실패 했습니다.");
+  }
+  return res.json();
+};
+
+export default async function Board() {
+  const res = await getList();
+
   return (
-    <main>
-      <p>{usePathname()}</p>
-      <BasicCard>
-        {dataList.map((el, i) => {
-          return (
-            <div key={i} className="mt-2 border-b-2 border-s-gray-400">
+    <main className="p-5">
+      {res.map((el: Board, i: number) => {
+        return (
+          <BasicCard key={i}>
+            <div className="mt-2">
               <h4>{el.title}</h4>
               <p>{el.contents}</p>
+              <p>작성일 {el.date}</p>
             </div>
-          );
-        })}
-      </BasicCard>
+          </BasicCard>
+        );
+      })}
+
+      <div className="flex flex-row-reverse mt-8">
+        <Link href={"/board/write"}>
+          <BasicButton bttnText="게시글 작성하기" />
+        </Link>
+      </div>
     </main>
   );
 }
