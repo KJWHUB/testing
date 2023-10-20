@@ -9,14 +9,16 @@ export async function GET() {
 
   const boards: Board[] = await res.json();
 
+  boards.sort((a, b) => b.id - a.id);
+
   return NextResponse.json(boards);
 }
 
 // POST ================================================================================
 export async function POST(request: Request) {
-  const { id, title, contents }: Partial<Board> = await request.json();
+  const { title, contents }: Partial<Board> = await request.json();
 
-  if (!id || !title || !contents) {
+  if (!title || !contents) {
     return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
   }
 
@@ -26,14 +28,13 @@ export async function POST(request: Request) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      id,
       title,
       contents,
       date: new Date(),
     }),
   });
 
-  return NextResponse.json("sucess");
+  return NextResponse.json({ message: "성공적으로 저장되었습니다" });
 }
 
 // PUT ================================================================================

@@ -17,7 +17,7 @@ export default function MyModal() {
 
   return (
     <>
-      <BasicButton btnClick={openModal} bttnText="게시글 작성하기" />
+      <BasicButton btnClick={openModal} bttnText="작성하기" />
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
