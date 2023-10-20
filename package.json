@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "startdb": "json-server db.json --watch --port 9999"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "dayjs": "^1.11.10",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",

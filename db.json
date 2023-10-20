@@ -18,10 +18,58 @@
   },
   "board": [
     {
-      "id": 0,
-      "title": "게시글 제목",
-      "contents": "게시글 내용",
-      "date": "작성일"
+      "title": "asdasd",
+      "contents": "asdasdasd",
+      "date": "2023-10-20T03:46:19.414Z",
+      "id": 2
+    },
+    {
+      "title": "제목작성",
+      "contents": "내용",
+      "date": "2023-10-20T03:50:00.531Z",
+      "id": 3
+    },
+    {
+      "title": "ㅁㄴㅇㅁㄴㅇ",
+      "contents": "ㅁㄴㅇㄴㅁㅇㅁㄴ",
+      "date": "2023-10-20T03:51:31.784Z",
+      "id": 4
+    },
+    {
+      "title": "asdasdasd",
+      "contents": "asdasdasd",
+      "date": "2023-10-20T03:53:24.230Z",
+      "id": 5
+    },
+    {
+      "title": "awdawdawd",
+      "contents": "awdawdawdwadwad",
+      "date": "2023-10-20T03:56:23.743Z",
+      "id": 6
+    },
+    {
+      "title": "게시판테스트",
+      "contents": "테스트안직혀",
+      "date": "2023-10-20T03:58:55.227Z",
+      "id": 7
+    },
+    {
+      "title": "asdasds",
+      "contents": "adasdasd123412412",
+      "date": "2023-10-20T04:03:45.187Z",
+      "id": 8
+    },
+    {
+      "title": "asdmkasdkm",
+      "contents": "124asdasd2`1312",
+      "date": "2023-10-20T04:28:00.215Z",
+      "id": 9
+    },
+    {
+      "title": "테스트 케이스 작성하기",
+      "contents": "ㅁ내녕",
+      "date": "2023-10-20T04:29:49.915Z",
+      "id": 10
     }
   ]
 }
