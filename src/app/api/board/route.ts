@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { NextResponse } from "next/server";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       title,
       contents,
-      date: new Date(),
+      date: dayjs().format("YYYY-MM-DD HH:mm"),
     }),
   });
 
@@ -54,7 +55,7 @@ export async function PUT(request: Request) {
       id,
       title,
       contents,
-      modifyDate: new Date(),
+      modifyDate: dayjs().format("YYYY-MM-DD HH:mm"),
     }),
   });
 

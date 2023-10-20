@@ -1,6 +1,6 @@
-import BasicCard from "@/components/Card/BasicCard";
-import BasicButton from "@/components/Button/BasicButton";
 import Link from "next/link";
+import BasicButton from "@/components/Button/BasicButton";
+import BasicCard from "@/components/Card/BasicCard";
 import { getList } from "@/services/board";
 
 export default async function Board() {

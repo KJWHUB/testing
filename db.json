@@ -1,21 +1,4 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "board": [
     {
       "title": "asdasd",
@@ -70,6 +53,30 @@
       "contents": "ㅁ내녕",
       "date": "2023-10-20T04:29:49.915Z",
       "id": 10
+    },
+    {
+      "title": "리액트 알려줘 ㅜㅜ",
+      "contents": "나도 리액트 잘하고싶어",
+      "date": "2023-10-20T10:48:31.025Z",
+      "id": 11
+    },
+    {
+      "title": "dayjs 적용",
+      "contents": "적용 해봤어용",
+      "date": "2023-10-20T20:26",
+      "id": 12
+    },
+    {
+      "title": "2차적용",
+      "contents": "2차적용핼ㅆ어용",
+      "date": "2023-10-20 20:27",
+      "id": 13
+    },
+    {
+      "title": "모달 수정후 게시글 테스트",
+      "contents": "한번해봤다이",
+      "date": "2023-10-20 21:46",
+      "id": 14
     }
   ]
 }

@@ -1,18 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import BasicButton from "@/components/Button/BasicButton";
 import BasicCard from "@/components/Card/BasicCard";
 import BasicDialog from "@/components/Dialog/BasicDialog";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+
 import { postData } from "@/services/board";
 
 export default function BoardWrite() {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState({
     title: "",
     contents: "",
   });
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
   const handleChange = (e: any) => {
     setValues({
@@ -21,9 +32,9 @@ export default function BoardWrite() {
     });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     postData(values);
+    closeModal();
     router.refresh();
     router.push("/board");
   };
@@ -32,7 +43,7 @@ export default function BoardWrite() {
     <main className="p-5">
       <BasicCard>
         {/* form */}
-        <form onSubmit={handleSubmit} className="p-4">
+        <form className="p-4">
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -89,16 +100,11 @@ export default function BoardWrite() {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            className=" mr-3 text-sm font-semibold leading-6 text-gray-900"
-          >
-            확인
-          </button>
         </form>
         {/* button */}
         <div className="flex flex-row-reverse px-4 pb-2">
-          <BasicDialog></BasicDialog>
+          <BasicButton btnClick={openModal} bttnText="작성하기" />
+
           <Link className="flex items-center mr-3" href={"/board"}>
             <button
               type="button"
@@ -108,6 +114,13 @@ export default function BoardWrite() {
             </button>
           </Link>
         </div>
+        <BasicDialog
+          isShow={isOpen}
+          closeModal={closeModal}
+          handleSubmit={handleSubmit}
+          title="게시글을 등록 하시겠습니까?"
+          subText="부적절한 단어 및 문장이 포함되었을시 사전 알림없이 게시글이 삭제처리 될수 있습니다."
+        ></BasicDialog>
       </BasicCard>
     </main>
   );

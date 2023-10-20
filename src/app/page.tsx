@@ -1,7 +1,7 @@
 import { Playfair_Display } from "next/font/google";
-import { classNames } from "@/utils/class";
-import GlassCard from "@/components/Card/GlassCard";
 import GlassButton from "@/components/Button/GlassButton";
+import GlassCard from "@/components/Card/GlassCard";
+import { classNames } from "@/utils/class";
 
 const playfairDisplay = Playfair_Display({ subsets: ["latin"] });
 

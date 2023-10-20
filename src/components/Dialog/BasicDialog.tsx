@@ -1,25 +1,28 @@
 "use client";
 
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
-import BasicButton from "@/components/Button/BasicButton";
 
-export default function MyModal() {
-  let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
+export default function MyModal({
+  isShow,
+  closeModal,
+  handleSubmit,
+  title = "기본 타이틀",
+  subText,
+  checkText = "확인",
+  cancelText = "취소",
+}: {
+  isShow: boolean;
+  closeModal: any;
+  handleSubmit: any;
+  title?: string;
+  subText?: any;
+  checkText?: string;
+  cancelText?: string;
+}) {
   return (
     <>
-      <BasicButton btnClick={openModal} bttnText="작성하기" />
-
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isShow} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -49,13 +52,10 @@ export default function MyModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    게시글을 등록 하시겠습니까?
+                    {title}
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      부적절한 단어 및 문장이 포함되었을시 사전 알림없이 <br />
-                      게시글이 삭제처리 될수 있습니다.
-                    </p>
+                    <p className="text-sm text-gray-500">{subText}</p>
                   </div>
 
                   <div className="flex flex-row mt-4">
@@ -64,14 +64,14 @@ export default function MyModal() {
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                       onClick={closeModal}
                     >
-                      취소
+                      {cancelText}
                     </button>
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent ml-3 bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
+                      onClick={handleSubmit}
                     >
-                      확인
+                      {checkText}
                     </button>
                   </div>
                 </Dialog.Panel>
