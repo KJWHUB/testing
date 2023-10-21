@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { verifyJwt } from "@/app/lib/jwt";
 import prisma from "@/app/lib/prisma";
 
+/**
+ * 회원의 게시물 리스트 조회
+ * @param request
+ * @param param1
+ * @returns
+ */
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }

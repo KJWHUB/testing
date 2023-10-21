@@ -9,6 +9,9 @@ interface RequestBody {
   password: string;
 }
 
+/**
+ * 회원가입 요청 api
+ */
 export async function POST(request: Request) {
   const { name, email, password }: RequestBody = await request.json();
 
