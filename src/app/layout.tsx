@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import TailHeader from "@/components/Layouts/Header/TailHeader";
+import Providers from "@/components/Provider/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <TailHeader />
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">{children}</div>
+        <Providers>
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

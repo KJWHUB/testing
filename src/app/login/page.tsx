@@ -1,3 +1,5 @@
+import SignInButton from "@/components/Button/SignInButton";
+
 /*
   This example requires some changes to your config:
   
@@ -86,6 +88,8 @@ export default function Example() {
               </button>
             </div>
           </form>
+
+          <SignInButton />
 
           <p className="mt-10 text-center text-sm text-gray-500">
             회원이 아니신가요?

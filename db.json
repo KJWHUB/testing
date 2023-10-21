@@ -36,5 +36,14 @@
       "date": "2023-10-20 22:37",
       "id": 15
     }
+  ],
+  "user": [
+    {
+      "name": "test1",
+      "email": "test1@gmail.com",
+      "password": "$2b$10$mqYcDBWH82IYULpiQJkgjel4THoeZxb4T5SCH0JEFciDgnP3C/hIO",
+      "signinDate": "2023-10-21T08:50:09.946Z",
+      "id": 1
+    }
   ]
 }
