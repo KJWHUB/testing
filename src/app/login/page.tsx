@@ -1,9 +1,19 @@
 "use client";
 
-import React, { useRef } from "react";
-import { signIn } from "next-auth/react";
+import React, { useEffect, useRef, useState } from "react";
+import { getProviders, signIn } from "next-auth/react";
 
 export default function Login() {
+  const [providers, setProviders] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const res: any = await getProviders();
+      console.log("getProviders::", res);
+      setProviders(res);
+    })();
+  }, []);
+
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -11,6 +21,18 @@ export default function Login() {
     const result = await signIn("credentials", {
       username: emailRef.current,
       password: passwordRef.current,
+      redirect: true,
+      callbackUrl: "/",
+    });
+  };
+  const handleKakao = async () => {
+    const result = await signIn("kakao", {
+      redirect: true,
+      callbackUrl: "/",
+    });
+  };
+  const handleNaver = async () => {
+    const result = await signIn("naver", {
       redirect: true,
       callbackUrl: "/",
     });
@@ -87,12 +109,31 @@ export default function Login() {
               </div>
             </div>
 
+            {/* 기본 */}
             <div>
               <button
                 onClick={handleSubmit}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center transition duration-300 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
+              </button>
+            </div>
+            {/* 카카오 */}
+            <div>
+              <button
+                className="flex w-full justify-center transition duration-300 rounded-md bg-yellow-400  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={handleKakao}
+              >
+                Kakao
+              </button>
+            </div>
+            {/* 네이버 */}
+            <div>
+              <button
+                className="flex w-full justify-center transition duration-300 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={handleNaver}
+              >
+                Naver
               </button>
             </div>
           </form>
