@@ -1,15 +1,16 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   AcademicCapIcon,
   ArrowRightOnRectangleIcon,
   ClipboardDocumentListIcon,
+  PaintBrushIcon,
 } from "@heroicons/react/20/solid";
 
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import $g from "@/utils";
 
 export default function TailHeader() {
@@ -65,6 +66,12 @@ const NavComponent = () => {
       href: "/board",
       current: false,
       icon: <AcademicCapIcon className="h-5 w-5 mr-1" />,
+    },
+    {
+      name: "Graphic",
+      href: "/graphic",
+      current: false,
+      icon: <PaintBrushIcon className="h-5 w-5 mr-1" />,
     },
   ]);
 

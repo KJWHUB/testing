@@ -13,9 +13,11 @@ export default async function Board() {
           <div className="pb-3" key={i}>
             <BasicCard>
               <div className="mt-2">
-                <h4>{el.title}</h4>
-                <p>{el.contents}</p>
-                <p>작성일 {el.date}</p>
+                <h4 className="mb-2 text-lg">{el.title}</h4>
+                <p className="text-sm">{el.contents}</p>
+                <div className="flex flex-row-reverse">
+                  <p className=" text-xs text-gray-400">작성일 {el.date}</p>
+                </div>
               </div>
             </BasicCard>
           </div>
