@@ -1,20 +1,21 @@
-import SignInButton from "@/components/Button/SignInButton";
+"use client";
 
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-export default function Example() {
+import React, { useRef } from "react";
+import { signIn } from "next-auth/react";
+
+export default function Login() {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const handleSubmit = async () => {
+    const result = await signIn("credentials", {
+      username: emailRef.current,
+      password: passwordRef.current,
+      redirect: true,
+      callbackUrl: "/",
+    });
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -40,10 +41,15 @@ export default function Example() {
               </label>
               <div className="mt-2">
                 <input
+                  ref={emailRef}
+                  onChange={(e: any) => {
+                    emailRef.current = e.target.value;
+                  }}
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
+                  autoFocus={true}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -69,6 +75,8 @@ export default function Example() {
               </div>
               <div className="mt-2">
                 <input
+                  ref={passwordRef}
+                  onChange={(e: any) => (passwordRef.current = e.target.value)}
                   id="password"
                   name="password"
                   type="password"
@@ -81,15 +89,13 @@ export default function Example() {
 
             <div>
               <button
-                type="submit"
+                onClick={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
               </button>
             </div>
           </form>
-
-          <SignInButton />
 
           <p className="mt-10 text-center text-sm text-gray-500">
             회원이 아니신가요?

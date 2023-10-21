@@ -7,7 +7,6 @@ interface RequestBody {
   name: string;
   email: string;
   password: string;
-  signinDate: string;
 }
 
 export async function POST(request: Request) {
