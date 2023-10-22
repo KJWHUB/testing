@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -28,7 +29,14 @@ interface MainSlide {
 
 function MainSwiper() {
   return (
-    <Swiper className="mb-10">
+    <Swiper
+      className="mb-10"
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      modules={[Autoplay]}
+    >
       {list.map((el, i: number) => {
         return (
           <SwiperSlide key={i}>
