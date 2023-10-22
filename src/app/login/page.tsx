@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { getProviders, signIn } from "next-auth/react";
 
 export default function Login() {
@@ -140,12 +141,12 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             회원이 아니신가요?
-            <a
-              href="#"
+            <Link
+              href={"/login/sign"}
               className="ml-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               회원가입
-            </a>
+            </Link>
           </p>
         </div>
       </div>

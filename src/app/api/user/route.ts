@@ -28,5 +28,5 @@ export async function POST(request: Request) {
   });
 
   const { ...result } = user;
-  return new Response(JSON.stringify(result));
+  return NextResponse.json(result);
 }
