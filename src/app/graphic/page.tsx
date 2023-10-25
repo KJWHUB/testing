@@ -1,5 +1,9 @@
+"use client";
+
 import CircularGradient from "@/components/Background/CircularGradient";
 import GlassCard from "@/components/Card/GlassCard";
+
+import { openModal } from "@/components/Dialog/fnDialog.jsx";
 
 export default function Page() {
   return (
@@ -12,7 +16,9 @@ export default function Page() {
 
         <div className="pt-72 px-52">
           <GlassCard>
-            <div className=" h-96"></div>
+            <div className=" h-96">
+              <button onClick={openModal}>click</button>
+            </div>
           </GlassCard>
         </div>
       </section>
