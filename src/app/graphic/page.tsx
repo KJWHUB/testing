@@ -1,5 +1,6 @@
 "use client";
 
+import "./style.css";
 import CircularGradient from "@/components/Background/CircularGradient";
 import GlassCard from "@/components/Card/GlassCard";
 
@@ -18,6 +19,7 @@ export default function Page() {
           <GlassCard>
             <div className=" h-96">
               <button onClick={openModal}>click</button>
+              <p className="itcon">asdasd</p>
             </div>
           </GlassCard>
         </div>
