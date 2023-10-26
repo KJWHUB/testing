@@ -1,5 +1,7 @@
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const getList = async () => {
-  const res = await fetch("http://localhost:3000" + "/api/board", {
+  const res = await fetch(BASE_URL + "/api/board", {
     cache: "no-store",
   });
 
@@ -10,7 +12,7 @@ export const getList = async () => {
 };
 
 export const postData = async (pData: any) => {
-  await fetch("http://localhost:3000" + "/api/board", {
+  await fetch(BASE_URL + "/api/board", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -14,9 +14,9 @@ export default async function Board() {
             <BasicCard>
               <div className="mt-2">
                 <h4 className="mb-2 text-lg">{el.title}</h4>
-                <p className="text-sm">{el.contents}</p>
+                <p className="text-sm">{el.content}</p>
                 <div className="flex flex-row-reverse">
-                  <p className=" text-xs text-gray-400">작성일 {el.date}</p>
+                  <p className=" text-xs text-gray-400">작성일 {el.registrationTime}</p>
                 </div>
               </div>
             </BasicCard>

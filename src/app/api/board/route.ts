@@ -1,83 +1,89 @@
 import dayjs from "dayjs";
 import { NextResponse } from "next/server";
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const DATA_SOURCE_URL = BASE_URL + "/board";
+import prisma from "@/app/lib/prisma";
 
 // GET ================================================================================
+/**
+ * 게시판 목록 조회
+ */
 export async function GET() {
-  const res = await fetch(DATA_SOURCE_URL);
-
-  const boards: Board[] = await res.json();
-
-  boards.sort((a, b) => b.id - a.id);
+  const boards: any = await prisma.board.findMany({
+    orderBy: {
+      registrationTime: "desc",
+    },
+  });
 
   return NextResponse.json(boards);
 }
 
 // POST ================================================================================
+/**
+ * 게시글 등록
+ */
+interface BoardPostRequest {
+  email: string;
+  title: string;
+  content: string;
+}
 export async function POST(request: Request) {
-  const { title, contents }: Partial<Board> = await request.json();
+  const { email, title, content }: Partial<BoardPostRequest> = await request.json();
 
-  if (!title || !contents) {
+  if (!email || !title || !content) {
     return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
   }
 
-  const res = await fetch(DATA_SOURCE_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  // 사용자의 ID를 가져옵니다.
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
     },
-    body: JSON.stringify({
-      title,
-      contents,
-      date: dayjs().format("YYYY-MM-DD HH:mm"),
-    }),
   });
 
-  return NextResponse.json({ message: "성공적으로 저장되었습니다" });
-}
-
-// PUT ================================================================================
-export async function PUT(request: Request) {
-  const { id, title, contents }: Board = await request.json();
-
-  if (!id || !title || !contents) {
-    return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
-  }
-
-  const res = await fetch(`${DATA_SOURCE_URL}/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id,
+  // 사용자에 대한 새 게시물을 생성합니다.
+  const board = await prisma.board.create({
+    data: {
       title,
-      contents,
-      modifyDate: dayjs().format("YYYY-MM-DD HH:mm"),
-    }),
-  });
-
-  const updateTodo = await res.json();
-
-  return NextResponse.json(updateTodo);
-}
-
-// DELETE ================================================================================
-export async function DELETE(request: Request) {
-  const { id }: Partial<Board> = await request.json();
-
-  if (!id) return NextResponse.json({ message: "todo 의 id 값은 필수입니다" });
-
-  await fetch(`${DATA_SOURCE_URL}/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
+      content,
+      registrationTime: dayjs().format("YYYY-MM-DD HH:mm"),
+      author: {
+        connect: {
+          id: user?.id,
+        },
+      },
     },
   });
 
   return NextResponse.json({
-    massge: `board ${id} 가 성공적으로 삭제 되었습니다`,
+    message: "성공적으로 저장되었습니다",
+    data: board,
   });
+}
+
+// PUT ================================================================================
+/**
+ * 게시글 수정
+ */
+export async function PUT(request: Request) {
+  const { id, title, content }: Board = await request.json();
+
+  if (!id || !title || !content) {
+    return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
+  }
+
+  try {
+    const board = await prisma.board.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        title,
+        content,
+        registrationTime: dayjs().format("YYYY-MM-DD HH:mm"),
+      },
+    });
+
+    return NextResponse.json({ message: "게시글 수정이 완료 되었습니다.", data: board });
+  } catch (error) {
+    return NextResponse.json({ message: "게시글 수정에 실패했습니다.", status: 500 });
+  }
 }

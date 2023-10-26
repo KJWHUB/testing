@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import BasicButton from "@/components/Button/BasicButton";
 import BasicCard from "@/components/Card/BasicCard";
 import BasicDialog from "@/components/Dialog/BasicDialog";
@@ -11,10 +12,11 @@ import { postData } from "@/services/board";
 
 export default function BoardWrite() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [values, setValues] = useState({
     title: "",
-    contents: "",
+    content: "",
   });
 
   const closeModal = () => {
@@ -33,7 +35,8 @@ export default function BoardWrite() {
   };
 
   const handleSubmit = () => {
-    postData(values);
+    const requestData = { ...values, email: session?.user.email };
+    postData(requestData);
     closeModal();
     router.refresh();
     router.push("/board");
@@ -78,15 +81,15 @@ export default function BoardWrite() {
 
                 <div className="col-span-full">
                   <label
-                    htmlFor="contents"
+                    htmlFor="content"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     내용
                   </label>
                   <div className="mt-2">
                     <textarea
-                      id="contents"
-                      name="contents"
+                      id="content"
+                      name="content"
                       rows={3}
                       onChange={handleChange}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

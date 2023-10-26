@@ -8,7 +8,7 @@ type Todo = {
 type Board = {
   id: number;
   title: string;
-  contents: string;
-  date?: string;
-  modifyDate?: string;
+  content: string;
+  registrationTime: string;
+  published: string;
 };

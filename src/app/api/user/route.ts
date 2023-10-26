@@ -1,5 +1,4 @@
-import * as bcrypt from "bcrypt"; // 바뀐 부분
-import dayjs from "dayjs";
+import * as bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prisma";
 
@@ -19,14 +18,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
   }
 
-  const user = await prisma.user.create({
-    data: {
-      name,
-      email,
-      password: await bcrypt.hash(password, 10),
-    },
-  });
+  const exUserList = await Promise.all([
+    prisma.user.findUnique({ where: { email: email } }),
+  ]);
 
-  const { ...result } = user;
-  return NextResponse.json(result);
+  if (exUserList[0]) {
+    return NextResponse.json({
+      message: "이메일이 이미 존재합니다.",
+      status: 409,
+    });
+  }
+
+  try {
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: await bcrypt.hash(password, 10),
+      },
+    });
+    const { ...result } = user;
+    return NextResponse.json({
+      message: "회원가입이 성공적으로 되었습니다",
+      data: result,
+    });
+  } catch (error) {
+    console.error("/api/user error >> ", error);
+    return NextResponse.json({
+      message: "서버 에러로 실패하였습니다.",
+      status: 500,
+    });
+  }
 }
