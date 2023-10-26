@@ -6,7 +6,10 @@ export const getList = async () => {
   });
 
   if (!res.ok) {
-    throw new Error("목록 리스트 조회에 실패 했습니다.");
+    console.log("목록 리스트 조회에 실패 했습니다.");
+    console.log("res:::::", res);
+    return [];
+    // throw new Error("목록 리스트 조회에 실패 했습니다.");
   }
   return res.json();
 };
