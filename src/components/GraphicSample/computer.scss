@@ -1,0 +1,35 @@
+#computer-graphic-wrap {
+  position: relative;
+  display: block;
+
+  height: 80vh;
+
+  background-color: #fff;
+
+  .conputer-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s;
+
+    animation-name: upDown;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    &:hover {
+      transform: translate(-50%, -100%);
+    }
+  }
+}
+
+@keyframes upDown {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -55%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
