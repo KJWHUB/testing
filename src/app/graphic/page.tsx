@@ -1,6 +1,7 @@
 "use client";
 
 import "./style.css";
+import Link from "next/link";
 import CircularGradient from "@/components/Background/CircularGradient";
 import GlassCard from "@/components/Card/GlassCard";
 
@@ -19,7 +20,7 @@ export default function Page() {
           <GlassCard>
             <div className=" h-96">
               <button onClick={openModal}>click</button>
-              <p className="itcon">asdasd</p>
+              <PageList />
             </div>
           </GlassCard>
         </div>
@@ -27,3 +28,23 @@ export default function Page() {
     </main>
   );
 }
+
+const PageList = () => {
+  const pageMap = [
+    {
+      g_id: "/graphic/1",
+      label: "computer",
+    },
+  ];
+  return (
+    <ul>
+      {pageMap.map((el, i) => {
+        return (
+          <li key={i} style={{ padding: 10, border: "1px solid #000" }}>
+            <Link href={el.g_id}>{el.label}</Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
