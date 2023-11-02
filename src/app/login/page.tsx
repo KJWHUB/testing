@@ -2,9 +2,11 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getProviders, signIn } from "next-auth/react";
 
 export default function Login() {
+  const router = useRouter();
   const [providers, setProviders] = useState(null);
 
   useEffect(() => {
@@ -20,11 +22,17 @@ export default function Login() {
 
   const handleSubmit = async () => {
     const result = await signIn("credentials", {
-      username: emailRef.current,
+      email: emailRef.current,
       password: passwordRef.current,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
+
+    if (result?.ok) {
+      router.replace("/");
+      alert("로그인 성공.");
+    } else {
+      alert("로그인에 실패했습니다.");
+    }
   };
   const handleKakao = async () => {
     const result = await signIn("kakao", {
@@ -43,23 +51,14 @@ export default function Login() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            로그인 후 더 많은 서비스를 이용해주세요 !
-          </h2>
+          <img className="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">로그인 후 더 많은 서비스를 이용해주세요 !</h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="#" method="POST">
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
               </label>
               <div className="mt-2">
@@ -81,17 +80,11 @@ export default function Login() {
 
             <div>
               <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
+                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </a>
                 </div>
@@ -141,10 +134,7 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             회원이 아니신가요?
-            <Link
-              href={"/login/sign"}
-              className="ml-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
+            <Link href={"/login/sign"} className="ml-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               회원가입
             </Link>
           </p>

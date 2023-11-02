@@ -5,21 +5,16 @@ export const getList = async () => {
     cache: "no-store",
   });
 
-  if (!res.ok) {
-    console.log("목록 리스트 조회에 실패 했습니다.");
-    console.log("res:::::", res);
-    return [];
-    // throw new Error("목록 리스트 조회에 실패 했습니다.");
-  }
+  console.log("목록 조회 결과", res);
   return res.json();
 };
 
-export const postData = async (pData: any) => {
+export const postData = async (request: any) => {
   await fetch(BASE_URL + "/api/board", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(pData),
+    body: JSON.stringify(request),
   });
 };

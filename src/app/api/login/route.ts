@@ -5,7 +5,7 @@ import { signJwtAccessToken } from "@/app/lib/jwt";
 import prisma from "@/app/lib/prisma";
 
 interface RequestBody {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -14,12 +14,12 @@ export async function POST(request: Request) {
 
   const user = await prisma.user.findFirst({
     where: {
-      email: body.username,
+      email: body.email,
     },
   });
 
   if (!user) {
-    return NextResponse.json({ message: "일치하는 유저가 없습니다" });
+    return NextResponse.json({ error: "일치하는 유저가 없습니다" }, { status: 401 });
   }
 
   if (await bcrypt.compare(body.password, user.password)) {

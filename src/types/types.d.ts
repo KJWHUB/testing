@@ -9,6 +9,6 @@ type Board = {
   id: number;
   title: string;
   content: string;
-  registrationTime: string;
+  createAt: string;
   published: string;
 };

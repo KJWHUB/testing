@@ -7,13 +7,17 @@ import prisma from "@/app/lib/prisma";
  * 게시판 목록 조회
  */
 export async function GET() {
-  const boards: any = await prisma.board.findMany({
-    orderBy: {
-      registrationTime: "desc",
-    },
-  });
+  try {
+    const boards: any = await prisma.board.findMany({
+      orderBy: {
+        createAt: "desc",
+      },
+    });
 
-  return NextResponse.json(boards);
+    return NextResponse.json(boards);
+  } catch (error) {
+    return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error });
+  }
 }
 
 // POST ================================================================================
@@ -44,7 +48,6 @@ export async function POST(request: Request) {
     data: {
       title,
       content,
-      registrationTime: dayjs().format("YYYY-MM-DD HH:mm"),
       author: {
         connect: {
           id: user?.id,
@@ -78,7 +81,6 @@ export async function PUT(request: Request) {
       data: {
         title,
         content,
-        registrationTime: dayjs().format("YYYY-MM-DD HH:mm"),
       },
     });
 

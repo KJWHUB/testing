@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prisma";
 
 interface RequestBody {
-  name: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -12,15 +12,13 @@ interface RequestBody {
  * 회원가입 요청 api
  */
 export async function POST(request: Request) {
-  const { name, email, password }: RequestBody = await request.json();
+  const { email, password }: RequestBody = await request.json();
 
-  if (!name || !email || !password) {
+  if (!email || !password) {
     return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
   }
 
-  const exUserList = await Promise.all([
-    prisma.user.findUnique({ where: { email: email } }),
-  ]);
+  const exUserList = await Promise.all([prisma.user.findUnique({ where: { email: email } })]);
 
   if (exUserList[0]) {
     return NextResponse.json({
@@ -32,7 +30,6 @@ export async function POST(request: Request) {
   try {
     const user = await prisma.user.create({
       data: {
-        name,
         email,
         password: await bcrypt.hash(password, 10),
       },

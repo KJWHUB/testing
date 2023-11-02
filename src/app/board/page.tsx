@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Link from "next/link";
 import BasicButton from "@/components/Button/BasicButton";
 import BasicCard from "@/components/Card/BasicCard";
@@ -16,7 +17,9 @@ export default async function Board() {
                 <h4 className="mb-2 text-lg">{el.title}</h4>
                 <p className="text-sm">{el.content}</p>
                 <div className="flex flex-row-reverse">
-                  <p className=" text-xs text-gray-400">작성일 {el.registrationTime}</p>
+                  <p className=" text-xs text-gray-400">
+                    <span className="mr-1">작성일</span> {dayjs(el.createAt).format("YYYY-MM-DD HH:mm")}
+                  </p>
                 </div>
               </div>
             </BasicCard>
