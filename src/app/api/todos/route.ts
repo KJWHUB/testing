@@ -25,7 +25,6 @@ export async function POST(request: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "API-Key": API_KEY,
     },
     body: JSON.stringify({
       userId,
@@ -51,7 +50,6 @@ export async function PUT(request: Request) {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "API-Key": API_KEY,
     },
     body: JSON.stringify({
       userId,
@@ -75,7 +73,6 @@ export async function DELETE(request: Request) {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      "API-Key": API_KEY,
     },
   });
 
