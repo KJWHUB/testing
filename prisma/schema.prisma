@@ -2,9 +2,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
+
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
@@ -12,6 +18,8 @@ model User {
   email    String  @unique
   name     String?
   password String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
   posts    Board[]
 }
 
@@ -19,7 +27,8 @@ model Board {
   id               Int      @id @default(autoincrement())
   title            String
   content          String?
-  registrationTime String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
   published        Boolean  @default(false)
   authorId         Int
   author           User     @relation(fields: [authorId], references: [id])
