@@ -2,14 +2,9 @@
 
 import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  AcademicCapIcon,
-  ArrowRightOnRectangleIcon,
-  ClipboardDocumentListIcon,
-  PaintBrushIcon,
-  UserCircleIcon,
-} from "@heroicons/react/20/solid";
+import { AcademicCapIcon, ArrowRightOnRectangleIcon, ClipboardDocumentListIcon, PaintBrushIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -43,11 +38,7 @@ const Logo = () => {
   return (
     <div className="flex flex-shrink-0 items-center">
       <Link href="/">
-        <img
-          className="h-8 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-          alt="Your Company"
-        />
+        <Image src={"/tailwind_logo.svg"} alt="you logo" width={40} height={40} className="mx-auto" />
       </Link>
     </div>
   );
@@ -97,9 +88,7 @@ const NavComponent = () => {
             key={item.name}
             href={item.href}
             className={$g.classNames(
-              item.current
-                ? "bg-blue-500 text-white"
-                : "text-gray-300 hover:bg-blue-300 hover:text-white",
+              item.current ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-blue-300 hover:text-white",
               "flex rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 "
             )}
             aria-current={item.current ? "page" : undefined}
@@ -124,10 +113,7 @@ const MenuRight = () => {
   }
   return (
     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-      <Link
-        href="/login"
-        className="text-sm font-semibold leading-6 text-blue-500"
-      >
+      <Link href="/login" className="text-sm font-semibold leading-6 text-blue-500">
         Log in
         <ArrowRightOnRectangleIcon className="inline-block h-6 w-6 ml-1 text-blue-500" />
       </Link>
@@ -155,13 +141,7 @@ function ProfileMenu({ session }: { session: any }) {
         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <Menu.Item>
             {({ active }) => (
-              <Link
-                href={`/user/${session.user.id}/profile`}
-                className={classNames(
-                  active ? "bg-gray-100" : "",
-                  "block px-4 py-2 text-sm text-gray-700"
-                )}
-              >
+              <Link href={`/user/${session.user.id}/profile`} className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}>
                 Profile
               </Link>
             )}
@@ -169,10 +149,7 @@ function ProfileMenu({ session }: { session: any }) {
           <Menu.Item>
             {({ active }) => (
               <button
-                className={classNames(
-                  active ? "bg-gray-100" : "",
-                  "block w-full px-4 py-2 text-sm text-left text-gray-700"
-                )}
+                className={classNames(active ? "bg-gray-100" : "", "block w-full px-4 py-2 text-sm text-left text-gray-700")}
                 onClick={() => {
                   signOut();
                 }}

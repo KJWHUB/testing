@@ -40,13 +40,7 @@ function MainSwiper() {
       {list.map((el, i: number) => {
         return (
           <SwiperSlide key={i}>
-            <Image
-              src={el.img}
-              alt="slide"
-              width={300}
-              height={300}
-              layout="responsive"
-            />
+            <Image src={el.img} alt="slide" width={700} height={0} className=" w-auto h-auto" style={{ width: "100%", height: "auto" }} />
           </SwiperSlide>
         );
       })}
