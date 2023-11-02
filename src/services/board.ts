@@ -2,6 +2,9 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getList = async () => {
   const res = await fetch(BASE_URL + "/api/board", {
+    headers: {
+      "Content-Type": "application/json",
+    },
     cache: "no-store",
   });
 
