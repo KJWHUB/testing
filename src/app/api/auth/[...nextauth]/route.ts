@@ -15,6 +15,10 @@ const handler = NextAuth({
 
       async authorize(credentials, req) {
         const res = await submitLogin(credentials, req);
+
+        if (!res) {
+          return null;
+        }
         const user = await res.json();
 
         if (res.ok && user) {
