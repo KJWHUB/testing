@@ -8,7 +8,7 @@ export const getList = async () => {
     cache: "no-store",
   });
 
-  console.log("목록 조회 결과", res);
+  console.log("목록 조회 결과", res.status);
   return res.json();
 };
 

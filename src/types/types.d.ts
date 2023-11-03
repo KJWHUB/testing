@@ -10,5 +10,5 @@ type Board = {
   title: string;
   content: string;
   createAt: string;
-  published: string;
+  published: boolean;
 };

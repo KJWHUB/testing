@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { NextResponse } from "next/server";
 import prisma from "@/app/lib/prisma";
 
@@ -8,17 +7,17 @@ import prisma from "@/app/lib/prisma";
  */
 export async function GET() {
   try {
-    const boards: any = await prisma.board.findMany({
+    const res = await prisma.board.findMany({
       orderBy: {
         createAt: "desc",
       },
     });
 
-    if (boards.length === 0) {
+    if (res.length === 0) {
       return NextResponse.json({ data: [] });
     }
 
-    return NextResponse.json({ data: boards });
+    return NextResponse.json({ data: res });
   } catch (error) {
     return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error, data: [] });
   }
