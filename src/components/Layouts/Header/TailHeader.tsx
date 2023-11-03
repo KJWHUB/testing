@@ -5,7 +5,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { AcademicCapIcon, ArrowRightOnRectangleIcon, ClipboardDocumentListIcon, PaintBrushIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
 import $g from "@/utils";
@@ -45,60 +45,50 @@ const Logo = () => {
 };
 
 const NavComponent = () => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const [navigation, setNavigation] = useState([
+  const navigation = [
     {
       name: "Dashboard",
       href: "/",
-      current: false,
       icon: <ClipboardDocumentListIcon className="h-5 w-5 mr-1" />,
     },
     {
       name: "게시판",
       href: "/board",
-      current: false,
       icon: <AcademicCapIcon className="h-5 w-5 mr-1" />,
     },
     {
       name: "Graphic",
       href: "/graphic",
-      current: false,
       icon: <PaintBrushIcon className="h-5 w-5 mr-1" />,
     },
-  ]);
-
-  useEffect(() => {
-    const copyState = [...navigation];
-    copyState.forEach((el) => (el.current = false));
-    const item = copyState.find((el) => el.href === pathname);
-    if (!item) new Error("현재경로 에 일치하는 item 이 존재하지 않습니다.");
-    else {
-      item.current = true;
-    }
-    setNavigation(copyState);
-  }, [pathname, searchParams]);
+  ];
 
   return (
     <div className="hidden sm:ml-6 sm:block">
       <div className="flex space-x-4">
         {navigation.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={$g.classNames(
-              item.current ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-blue-300 hover:text-white",
-              "flex rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 "
-            )}
-            aria-current={item.current ? "page" : undefined}
-          >
+          <ActiveLink key={item.name} href={item.href}>
             {item?.icon}
             {item.name}
-          </Link>
+          </ActiveLink>
         ))}
       </div>
     </div>
+  );
+};
+
+const ActiveLink = ({ children, ...rest }: { children: React.ReactNode } & LinkProps) => {
+  const { href } = rest;
+  const pathName = usePathname();
+
+  const isActive = pathName === href;
+  return (
+    <Link
+      {...rest}
+      className={$g.classNames(isActive ? "bg-blue-500 text-white" : "text-gray-300 hover:bg-blue-300 hover:text-white", "flex rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 ")}
+    >
+      {children}
+    </Link>
   );
 };
 
