@@ -7,9 +7,11 @@ import { getList } from "@/services/board";
 export default async function Board() {
   const res = await getList();
 
+  console.log("page bo", res);
+
   return (
     <main className="p-5">
-      {res.map((el: Board, i: number) => {
+      {res.data.map((el: Board, i: number) => {
         return (
           <div className="pb-3" key={i}>
             <BasicCard>

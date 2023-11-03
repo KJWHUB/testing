@@ -14,9 +14,13 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(boards);
+    if (boards.length === 0) {
+      return NextResponse.json({ data: [] });
+    }
+
+    return NextResponse.json({ data: boards });
   } catch (error) {
-    return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error });
+    return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error, data: [] });
   }
 }
 
