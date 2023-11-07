@@ -16,8 +16,10 @@ export default function Sign() {
       password: passwordRef.current,
     };
     const res = await creatUser(req);
+    const d = await res.json();
 
     if (res.ok) {
+      console.log("aasdas", d);
       router.replace("/login");
     }
   };
