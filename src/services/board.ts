@@ -9,7 +9,7 @@ export const getList = async () => {
   });
 
   console.log("목록 조회 결과", res.status);
-  return res.json();
+  return res;
 };
 
 export const postData = async (request: any) => {

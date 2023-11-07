@@ -5,11 +5,12 @@ import BasicCard from "@/components/Card/BasicCard";
 import { getList } from "@/services/board";
 export default async function Board() {
   const res = await getList();
+  const { list } = await res.json();
 
   return (
     <main className="p-5">
-      {res &&
-        res.list.map((el: Board, i: number) => {
+      {res.ok &&
+        list.map((el: Board, i: number) => {
           return (
             <div className="pb-3" key={i}>
               <BasicCard>
