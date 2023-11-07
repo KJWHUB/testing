@@ -10,22 +10,26 @@ export default function Sign() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const req = {
       email: emailRef.current,
       password: passwordRef.current,
     };
     const res = await creatUser(req);
-    const d = await res.json();
+    const data = await res.json();
 
     if (res.ok) {
-      console.log("aasdas", d);
       router.replace("/login");
+      alert(data.message || "회원가입 성공했습니다.");
+    } else {
+      alert(data.message || "회원가입에 실패했습니다.");
     }
+    return;
   };
   return (
     <main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <form className=" sm:mx-auto sm:w-full sm:max-w-sm space-y-6" action="#" method="POST">
+      <form className=" sm:mx-auto sm:w-full sm:max-w-sm space-y-6" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
             Email address
@@ -70,7 +74,7 @@ export default function Sign() {
         {/* 기본 */}
         <div>
           <button
-            onClick={handleSubmit}
+            type="submit"
             className="flex w-full justify-center transition duration-300 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             회원가입

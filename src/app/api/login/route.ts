@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   });
 
   if (!user) {
-    return NextResponse.json({ error: "일치하는 유저가 없습니다" }, { status: 401 });
+    return NextResponse.json({ message: "일치하는 유저가 없습니다" }, { status: 401 });
   }
 
   if (await bcrypt.compare(body.password, user.password)) {

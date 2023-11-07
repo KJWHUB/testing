@@ -12,23 +12,28 @@ interface RequestBody {
  * 회원가입 요청 api
  */
 export async function POST(request: Request) {
-  console.log("요청 api 들어옴");
   const { email, password }: RequestBody = await request.json();
 
   if (!email || !password) {
-    return NextResponse.json({ message: "데이터가 올바른 값이 아닙니다" });
+    return NextResponse.json(
+      { message: "데이터가 올바른 값이 아닙니다" },
+      {
+        status: 400,
+      }
+    );
   }
 
   const exUserList = await Promise.all([prisma.user.findUnique({ where: { email: email } })]);
 
-  console.log("ex", exUserList);
-  // 기본 사용
-  // return NextResponse.redirect(new URL('/new', request.url));
   if (exUserList[0]) {
-    return NextResponse.json({
-      message: "이메일이 이미 존재합니다.",
-      status: 409,
-    });
+    return NextResponse.json(
+      {
+        message: "이메일이 이미 존재합니다.",
+      },
+      {
+        status: 409,
+      }
+    );
   }
 
   try {
@@ -45,9 +50,13 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("/api/user error >> ", error);
-    return NextResponse.json({
-      message: "서버 에러로 실패하였습니다.",
-      status: 500,
-    });
+    return NextResponse.json(
+      {
+        message: "서버 에러로 실패하였습니다.",
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
