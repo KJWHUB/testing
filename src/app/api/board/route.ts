@@ -14,12 +14,12 @@ export async function GET() {
     });
 
     if (res.length === 0) {
-      return NextResponse.json({ data: [] });
+      return NextResponse.json({ message: "조회된 게시판 목록이 없습니다.", list: [] });
     }
 
-    return NextResponse.json({ data: res });
+    return NextResponse.json({ list: res });
   } catch (error) {
-    return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error, data: [] });
+    return NextResponse.json({ message: "게시판 목록 조회에 실패했습니다", error, list: [] }, { status: 500 });
   }
 }
 
@@ -45,6 +45,10 @@ export async function POST(request: Request) {
       email,
     },
   });
+
+  if (!user) {
+    return NextResponse.json({ message: "일치하는 유저가 없습니다. 등록에 실패했습니다." }, { status: 400 });
+  }
 
   // 사용자에 대한 새 게시물을 생성합니다.
   const board = await prisma.board.create({
@@ -89,6 +93,6 @@ export async function PUT(request: Request) {
 
     return NextResponse.json({ message: "게시글 수정이 완료 되었습니다.", data: board });
   } catch (error) {
-    return NextResponse.json({ message: "게시글 수정에 실패했습니다.", status: 500 });
+    return NextResponse.json({ message: "게시글 수정에 실패했습니다." }, { status: 500 });
   }
 }

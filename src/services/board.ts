@@ -1,7 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getList = async () => {
-  const res = await fetch(BASE_URL + "/api/board", {
+  const res = await fetch(`${BASE_URL}/api/board`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -13,7 +13,7 @@ export const getList = async () => {
 };
 
 export const postData = async (request: any) => {
-  await fetch(BASE_URL + "/api/board", {
+  await fetch(`${BASE_URL}/api/board`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
