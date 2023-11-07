@@ -21,7 +21,8 @@ export default function Login() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const result = await signIn("credentials", {
       email: emailRef.current,
       password: passwordRef.current,
@@ -35,13 +36,15 @@ export default function Login() {
       alert("로그인에 실패했습니다.");
     }
   };
-  const handleKakao = async () => {
+  const handleKakao = async (e: React.FormEvent) => {
+    e.preventDefault();
     const result = await signIn("kakao", {
       redirect: true,
       callbackUrl: "/",
     });
   };
-  const handleNaver = async () => {
+  const handleNaver = async (e: React.FormEvent) => {
+    e.preventDefault();
     const result = await signIn("naver", {
       redirect: true,
       callbackUrl: "/",
@@ -57,7 +60,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -107,6 +110,7 @@ export default function Login() {
             {/* 기본 */}
             <div>
               <button
+                type="submit"
                 onClick={handleSubmit}
                 className="flex w-full justify-center transition duration-300 rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -116,8 +120,9 @@ export default function Login() {
             {/* 카카오 */}
             <div>
               <button
-                className="flex w-full justify-center transition duration-300 rounded-md bg-yellow-400  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                type="submit"
                 onClick={handleKakao}
+                className="flex w-full justify-center transition duration-300 rounded-md bg-yellow-400  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Kakao
               </button>
@@ -125,8 +130,9 @@ export default function Login() {
             {/* 네이버 */}
             <div>
               <button
-                className="flex w-full justify-center transition duration-300 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                type="submit"
                 onClick={handleNaver}
+                className="flex w-full justify-center transition duration-300 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Naver
               </button>
