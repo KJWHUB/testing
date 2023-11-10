@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import BasicButton from "@/components/Button/BasicButton";
 import BasicCard from "@/components/Card/BasicCard";
 import { getList } from "@/services/board";
 
 export default function Board() {
   const [boardList, setBoardList] = useState([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetch = async () => {
@@ -40,9 +42,12 @@ export default function Board() {
       })}
 
       <div className="flex flex-row-reverse mt-8">
-        <Link href={"board/write"}>
-          <BasicButton bttnText="게시글 작성하기" />
-        </Link>
+        {session && (
+          <Link href={"board/write"}>
+            <BasicButton bttnText="게시글 작성하기" />
+          </Link>
+        )}
+        {!session && <p>로그인시 게시물 작성 가능합니다</p>}
       </div>
     </main>
   );
